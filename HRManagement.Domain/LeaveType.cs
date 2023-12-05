@@ -3,7 +3,7 @@ using HRManagement.Domain.Common;
 
 namespace HRManagement.Domain;
 
-public class LeaveTypes : BaseEntity
+public class LeaveType : BaseEntity
 {
     public string Name { get; set; } = string.Empty;
     
