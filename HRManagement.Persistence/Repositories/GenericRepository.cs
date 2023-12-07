@@ -1,24 +1,25 @@
 ﻿using HRManagement.Application.Contracts.Persistence;
+using HRManagement.Domain.Common;
 using HRManagement.Persistence.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRManagement.Persistence.Repositories;
 
-public class GenericRepository<T> : IGenericRepository<T> where T : class
+public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 {
-    private readonly HrDatabaseContext _context;
+    protected readonly HrDatabaseContext _context;
     public GenericRepository(HrDatabaseContext context)
     {
         _context = context;
     }
     public async Task<IReadOnlyList<T>> GetAllAsync()
     {
-        return await _context.Set<T>().ToListAsync();
+        return await _context.Set<T>().AsNoTracking().ToListAsync();
     }
 
-    public async Task<T> GetByIdAsync(int id)
+    public async Task<T?> GetByIdAsync(int id)
     {
-        return await _context.Set<T>().FindAsync(id);
+        return await _context.Set<T>().AsNoTracking().FirstOrDefaultAsync(p=>p.Id == id);
     }
 
     public async Task AddAsync(T entity)

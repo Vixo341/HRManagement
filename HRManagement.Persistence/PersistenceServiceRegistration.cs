@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using HRManagement.Application.Contracts.Persistence;
+using HRManagement.Domain;
 using HRManagement.Persistence.DatabaseContext;
 using HRManagement.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,11 @@ public static class PersistenceServiceRegistration
         });
         
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
+        services.AddScoped<ILeaveAllocationRepository,LeaveAllocationRepository>();
+        services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
+        
+        
         return services;
     }
     
