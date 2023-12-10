@@ -33,14 +33,7 @@ namespace HRManagement.Application.Features.LeaveRequest.Commands.CancelLeaveReq
             await _leaveRequestRepository.UpdateAsync(leaveRequest);
 
             // if already approved, re-evaluate the employee's allocations for the leave type
-            if(leaveRequest.Approved == true)
-            {
-                int daysRequested = (int)(leaveRequest.EndDate - leaveRequest.StartDate).TotalDays;
-                var allocation = await _leaveAllocationRepository.GetUserAllocations(leaveRequest.RequestingEmployeeId, leaveRequest.LeaveTypeId);
-                allocation.NumberOfDays += daysRequested;
 
-                await _leaveAllocationRepository.UpdateAsync(allocation);
-            }
             
 
             // send confirmation email
@@ -53,7 +46,7 @@ namespace HRManagement.Application.Features.LeaveRequest.Commands.CancelLeaveReq
                     Subject = "Leave Request Cancelled"
                 };
 
-                await _emailSender.SendEmail(email);
+             //   await _emailSender.SendEmail(email);
             }
             catch (Exception)
             {

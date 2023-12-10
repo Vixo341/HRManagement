@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
-using HR.LeaveManagement.Application.DTOs;
-
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-
 using HRManagement.Application.Contracts.Persistence;
 using HRManagement.Application.Exceptions;
 using HRManagement.Application.Features.LeaveAllocation.Queries.GetLeaveAllocationDetails;

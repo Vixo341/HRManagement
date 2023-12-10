@@ -4,5 +4,5 @@ namespace HRManagement.Application.Contracts.Email;
 
 public interface IEmailSender
 {
-    Task<bool> SendEmailAsync(EmailMessage email);
+    Task<bool> SendEmail(EmailMessage email);
 }

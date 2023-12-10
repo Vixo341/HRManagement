@@ -43,7 +43,7 @@ public class ChangeLeaveRequestApprovalCommandHandler : IRequestHandler<ChangeLe
         if (request.Approved)
         {
             int daysRequested = (int)(leaveRequest.EndDate - leaveRequest.StartDate).TotalDays;
-            var allocation = await _leaveAllocationRepository.GetUserAllocations(leaveRequest.RequestingEmployeeId, leaveRequest.LeaveTypeId);
+            var allocation = await _leaveAllocationRepository.GetLeaveAllocationByEmployeeAndType(leaveRequest.RequestingEmployeeId, leaveRequest.LeaveTypeId);
             allocation.NumberOfDays -= daysRequested;
 
             await _leaveAllocationRepository.UpdateAsync(allocation);

@@ -11,14 +11,12 @@ namespace HRManagement.Application.Features.LeaveRequests.Handlers.Queries
     {
         private readonly ILeaveRequestRepository _leaveRequestRepository;
         private readonly IMapper _mapper;
-        private readonly IUserService _userService;
 
         public GetLeaveRequestDetailQueryHandler(ILeaveRequestRepository leaveRequestRepository,
-            IMapper mapper, IUserService userService)
+            IMapper mapper)
         {
             _leaveRequestRepository = leaveRequestRepository;
             _mapper = mapper;
-            this._userService = userService;
         }
         public async Task<LeaveRequestDetailsDto> Handle(GetLeaveRequestDetailQuery request, CancellationToken cancellationToken)
         {
@@ -26,9 +24,6 @@ namespace HRManagement.Application.Features.LeaveRequests.Handlers.Queries
 
             if (leaveRequest == null)
                 throw new NotFoundException(nameof(LeaveRequest), request.Id);
-
-            // Add Employee details as needed
-            leaveRequest.Employee = await _userService.GetEmployee(leaveRequest.RequestingEmployeeId);
 
             return leaveRequest;
         }

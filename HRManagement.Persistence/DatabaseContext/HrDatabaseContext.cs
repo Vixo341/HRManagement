@@ -16,7 +16,13 @@ public class HrDatabaseContext : DbContext
     public DbSet<LeaveAllocation> LeaveAllocations { get; set; }
     public DbSet<LeaveRequest> LeaveRequests { get; set; }
     
-    
+    public HrDatabaseContext CreateDbContext(string[] args)
+    {
+        var optionsBuilder = new DbContextOptionsBuilder<HrDatabaseContext>();
+        optionsBuilder.UseSqlServer("YourConnectionStringHere");
+
+        return new HrDatabaseContext(optionsBuilder.Options);
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(HrDatabaseContext).Assembly);

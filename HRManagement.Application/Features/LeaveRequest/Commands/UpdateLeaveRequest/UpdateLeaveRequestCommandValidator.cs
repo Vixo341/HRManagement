@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
-using HR.LeaveManagement.Application.Features.LeaveRequest.Shared;
 using HRManagement.Application.Contracts.Persistence;
+using HRManagement.Application.Features.LeaveRequest.Shared;
 
 namespace HRManagement.Application.Features.LeaveRequest.Commands.UpdateLeaveRequest;
 

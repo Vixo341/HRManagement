@@ -16,7 +16,7 @@ public class EmailSender : IEmailSender
         _emailSettings = emailSettings.Value;
     }
 
-    public async Task<bool> SendEmailAsync(EmailMessage email)
+    public async Task<bool> SendEmail(EmailMessage email)
     {
         var client = new SendGridClient(_emailSettings.ApiKey);
         var to = new EmailAddress(email.To);
