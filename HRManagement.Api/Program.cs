@@ -1,3 +1,4 @@
+using HRManagement.Api.Middleware;
 using HRManagement.Application;
 using HRManagement.Infrastructure;
 using HRManagement.Persistence;
@@ -28,6 +29,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
