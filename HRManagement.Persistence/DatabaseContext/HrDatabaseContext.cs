@@ -38,6 +38,7 @@ public class HrDatabaseContext : DbContext
             {
                 case EntityState.Added:
                     entry.Entity.DateCreated = DateTime.Now;
+                    entry.Entity.DateModified = DateTime.Now;
                     break;
                 case EntityState.Modified:
                     entry.Entity.DateModified = DateTime.Now;
