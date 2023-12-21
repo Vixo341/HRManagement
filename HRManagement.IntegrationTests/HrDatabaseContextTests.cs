@@ -1,4 +1,5 @@
-﻿using HRManagement.Domain;
+﻿using HRManagement.Application.Contracts.Identity;
+using HRManagement.Domain;
 using HRManagement.Persistence.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -15,7 +16,7 @@ public class HrDatabaseContextTests
             .UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
 
 
-        _hrDatabaseContext = new HrDatabaseContext(dbOptions);
+        _hrDatabaseContext = new HrDatabaseContext(dbOptions , new Mock<IUserService>().Object);
     }
 
     [Fact]

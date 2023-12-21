@@ -1,4 +1,5 @@
 using System.Reflection;
+using Blazored.Toast;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using HRManagement.BlazorUI;
@@ -15,6 +16,9 @@ builder.Services.AddHttpClient<IClient, Client>(client =>
 {
     client.BaseAddress = new Uri("https://localhost:7021");
 });
+
+builder.Services.AddBlazoredToast();
+
 
 builder.Services.AddScoped<ILeaveTypeService, LeaveTypeService>();
 builder.Services.AddScoped<ILeaveAllocationService, LeaveAllocationService>();

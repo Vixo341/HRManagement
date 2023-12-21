@@ -1,4 +1,5 @@
-﻿using HRManagement.Domain;
+﻿using HRManagement.Application.Contracts.Identity;
+using HRManagement.Domain;
 using HRManagement.Domain.Common;
 using HRManagement.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
@@ -7,22 +8,15 @@ namespace HRManagement.Persistence.DatabaseContext;
 
 public class HrDatabaseContext : DbContext
 {
-    public HrDatabaseContext(DbContextOptions<HrDatabaseContext> options) : base(options)
+    private readonly IUserService _userService;
+    public HrDatabaseContext(DbContextOptions<HrDatabaseContext> options, IUserService userService) : base(options)
     {
-        
+        _userService = userService;
     }
 
     public DbSet<LeaveType> LeaveTypes { get; set; }
     public DbSet<LeaveAllocation> LeaveAllocations { get; set; }
     public DbSet<LeaveRequest> LeaveRequests { get; set; }
-    
-    public HrDatabaseContext CreateDbContext(string[] args)
-    {
-        var optionsBuilder = new DbContextOptionsBuilder<HrDatabaseContext>();
-        optionsBuilder.UseSqlServer("YourConnectionStringHere");
-
-        return new HrDatabaseContext(optionsBuilder.Options);
-    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(HrDatabaseContext).Assembly);
@@ -39,9 +33,11 @@ public class HrDatabaseContext : DbContext
                 case EntityState.Added:
                     entry.Entity.DateCreated = DateTime.Now;
                     entry.Entity.DateModified = DateTime.Now;
+                    entry.Entity.CreatedBy = _userService.UserId;
                     break;
                 case EntityState.Modified:
                     entry.Entity.DateModified = DateTime.Now;
+                    entry.Entity.ModifiedBy = _userService.UserId;
                     break;
             }
         }
